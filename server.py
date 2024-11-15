@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import joblib
 import pandas as pd
 import numpy as np
+import os
+import uvicorn
 
 app = FastAPI()
 
@@ -38,3 +40,7 @@ def predict(date_str: str = Form(...)):
 @app.get('/')
 def root():
     return {"message": "FastAPI server is running!"}
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
